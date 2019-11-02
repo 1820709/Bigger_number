@@ -11,8 +11,11 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
+    private TextView txt1;
     private int scoreNumber = 0;
+    private int noOfLives = 10;
     private TextView scoreTxt;
+    private TextView livesTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         scoreTxt = (TextView) findViewById(R.id.score);
         scoreTxt.setText("0");
+        livesTxt = (TextView) findViewById(R.id.lives);
+        livesTxt.setText("10");
+        txt1 = (TextView) findViewById(R.id.textView1);
         play();
     }
 
@@ -27,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
         final Random rand = new Random();
         final Button p1_button = (Button) findViewById(R.id.button1);
         final Button p2_button = (Button) findViewById(R.id.button2);
-        final TextView txt1 = (TextView) findViewById(R.id.textView1);
-        int scoreNumber;
-        scoreNumber = 0;
+
+        int scoreNumber = 0;
 
         p1_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,10 +44,11 @@ public class MainActivity extends AppCompatActivity {
                 p1_button.setText(String.valueOf(number1));
                 p2_button.setText(String.valueOf(number2));
                 if (number1 > number2){
-                    txt1.setText("Congratulations!");
+                    updateMessage("Congratulations!");
                     incrementScore();
                 } else {
-                    txt1.setText("");
+                    updateMessage("");
+                    decreaseLives();
                 }
             }
         });
@@ -55,16 +61,34 @@ public class MainActivity extends AppCompatActivity {
                 p1_button.setText(String.valueOf(number1));
                 p2_button.setText(String.valueOf(number2));
                 if (number2 > number1){
-                    txt1.setText("Congratulations!");
+                    updateMessage("Congratulations!");
+                    incrementScore();
                 } else {
-                    txt1.setText("");
+                    updateMessage("");
+                    decreaseLives();
                 }
             }
         });
     }
 
+    private void updateMessage(String msg){
+        txt1.setText(msg);
+    }
+
     private void incrementScore(){
         scoreNumber += 1;
         scoreTxt.setText(String.valueOf(scoreNumber));
+    }
+
+    private void decreaseLives(){
+        noOfLives -= 1;
+        livesTxt.setText(String.valueOf(noOfLives));
+        if (noOfLives == 0){
+            txt1.setText("Game Over!");
+            scoreTxt.setText("0");
+            scoreNumber = 0;
+            noOfLives = 10;
+            livesTxt.setText("10");
+        }
     }
 }
