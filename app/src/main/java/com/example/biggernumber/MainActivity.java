@@ -11,21 +11,26 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    private int number1;
-    private int number2;
-
+    private int scoreNumber = 0;
+    private TextView scoreTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        scoreTxt = (TextView) findViewById(R.id.score);
+        scoreTxt.setText("0");
+        play();
     }
 
-    public void generate(View view) {
+    private void play() {
         final Random rand = new Random();
         final Button p1_button = (Button) findViewById(R.id.button1);
         final Button p2_button = (Button) findViewById(R.id.button2);
-        final TextView txt1 = findViewById(R.id.textView1);
+        final TextView txt1 = (TextView) findViewById(R.id.textView1);
+        int scoreNumber;
+        scoreNumber = 0;
+
         p1_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 p2_button.setText(String.valueOf(number2));
                 if (number1 > number2){
                     txt1.setText("Congratulations!");
+                    incrementScore();
                 } else {
                     txt1.setText("");
                 }
@@ -55,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void incrementScore(){
+        scoreNumber += 1;
+        scoreTxt.setText(String.valueOf(scoreNumber));
     }
 }

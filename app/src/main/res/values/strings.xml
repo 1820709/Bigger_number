@@ -2,4 +2,5 @@
     <string name="app_name">Bigger number</string>
     <string name="button">Button</string>
     <string name="button2">Button</string>
+    <string name="score">Score:</string>
 </resources>
