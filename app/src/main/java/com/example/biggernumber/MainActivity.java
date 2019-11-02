@@ -23,15 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void generate(View view) {
         final Random rand = new Random();
-
-        //TextView myText = findViewById(R.id.textView);
-        String number1Str = String.valueOf(number1);
-        String number2Str = String.valueOf(number2);
-        //myText.setText(myString);
-        //
-        //p2_button.setText(number2Str);
         final Button p1_button = (Button) findViewById(R.id.button1);
         final Button p2_button = (Button) findViewById(R.id.button2);
+        final TextView txt1 = findViewById(R.id.textView1);
         p1_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -39,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
                 int number2 = rand.nextInt(100)+1;
                 p1_button.setText(String.valueOf(number1));
                 p2_button.setText(String.valueOf(number2));
+                if (number1 > number2){
+                    txt1.setText("Congratulations!");
+                } else {
+                    txt1.setText("");
+                }
             }
         });
 
@@ -49,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
                 int number2 = rand.nextInt(100)+1;
                 p1_button.setText(String.valueOf(number1));
                 p2_button.setText(String.valueOf(number2));
+                if (number2 > number1){
+                    txt1.setText("Congratulations!");
+                } else {
+                    txt1.setText("");
+                }
             }
         });
 
